@@ -1,0 +1,65 @@
+#include<iostream>
+using namespace std;
+struct Node{
+    int data;
+    Node *left;
+    Node *right;
+    Node(int val){
+        data = val;
+        left = right = NULL;
+    }
+};
+
+Node* insertElement(Node* root, int val){
+ if(root == NULL)
+    return new Node(val);
+    
+ if(val < root->data)
+    root->left = insertElement(root->left, val);
+else
+    root->right = insertElement(root->right, val);
+    
+    return root;
+}
+
+void inorder(Node * root){
+    if(root == NULL)
+    return;
+    inorder(root->left);
+    cout<<root->data<<endl;
+    inorder(root->right);
+}
+
+void traverseLeaves(Node *root){
+    if(root == NULL)
+        return;
+        
+    if(root->left == NULL && root->right == NULL)
+        cout<<root->data<<" ";
+        
+    if(root->right)
+        traverseLeaves(root->right);
+    
+    if(root->left)
+        traverseLeaves(root->left);
+        
+        
+}
+
+
+int main(){
+    
+    Node *root = NULL;
+    root = insertElement(root, 8);
+    root = insertElement(root, 3);
+    root = insertElement(root, 10);
+    root = insertElement(root, 1);
+    root = insertElement(root, 6);
+    root = insertElement(root, 14);
+    root = insertElement(root, 4);
+    root = insertElement(root, 7);
+    root = insertElement(root, 13);
+    
+    traverseLeaves(root);
+    //inorder(root);
+}
